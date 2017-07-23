@@ -1,10 +1,11 @@
 from os import listdir, rename
 from os.path import isfile, join, isdir
-import tkinter as tk
+# import tkinter as tk
+from tkinter import Frame, Button, Label, Tk
 from tkinter import filedialog
 import shutil
 
-class App(tk.Frame):
+class App(Frame):
     def __init__(self, root):
         self._source_path = None
         # self._destination_path = None
@@ -12,7 +13,7 @@ class App(tk.Frame):
         self._filenames_map = None
         # self._files_at_source_paths = None
         self._files_at_source = None
-        # root = tk.Tk()
+        # root = Tk()
         self.create_app_view(root)
 
         self.dir_opt = dict([('parent', root), ('mustexist', True),
@@ -78,7 +79,7 @@ class App(tk.Frame):
         return list((line.split(',')[0], line.split(',')[1]) for line in lines)
 
     def create_app_view(self, root):
-        tk.Frame.__init__(self, root)
+        Frame.__init__(self, root)
 
         root.geometry('500x400+300+100')
         root.title('My app')
@@ -86,31 +87,31 @@ class App(tk.Frame):
         button_opt = {'fill': 'x', 'padx': 20, 'pady': (20, 0)}
         label_opt = {'fill': 'x', 'padx': 20, 'pady': (5, 20)}
         # button_opt = label_opt = {}
-        self._source_button = tk.Button(self, text='Choose sourece directory....',
+        self._source_button = Button(self, text='Choose sourece directory....',
                                         command=self.ask_source_directory)
         self._source_button.pack(**button_opt)
-        self._source_label = tk.Label(self, text='source label', anchor='c')
+        self._source_label = Label(self, text='source label', anchor='c')
         self._source_label.pack(**label_opt)
 
-        self._destination_button = tk.Button(self, text='Choose destination directory....',
+        self._destination_button = Button(self, text='Choose destination directory....',
                                              command=self.ask_detination_directory)
         self._destination_button.pack(**button_opt)
-        self._destination_label = tk.Label(self, text='destincation label', anchor='c')
+        self._destination_label = Label(self, text='destincation label', anchor='c')
         self._destination_label.pack(**label_opt)
 
 
-        self._filenames_map_button = tk.Button(self, text='Select csv file....',
+        self._filenames_map_button = Button(self, text='Select csv file....',
                                                command=self.ask_csv_file_path)
         self._filenames_map_button.pack(**button_opt)
-        self._filenames_map_label = tk.Label(self, text='csv file path', anchor='c')
+        self._filenames_map_label = Label(self, text='csv file path', anchor='c')
         self._filenames_map_label.pack(**label_opt)
 
-        self._copy_button = tk.Button(self, text='Copy And Rename',
+        self._copy_button = Button(self, text='Copy And Rename',
                                       command=self.copy_and_raname_file).pack(**button_opt)
         # copy_button.pack()
 
 if __name__=='__main__':
-    root = tk.Tk()
+    root = Tk()
     app_view = App(root)
     app_view.pack(side='top', fill='both', expand=True)
     root.mainloop()
